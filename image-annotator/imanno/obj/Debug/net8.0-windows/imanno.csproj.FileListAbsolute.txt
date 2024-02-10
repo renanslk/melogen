@@ -1,0 +1,17 @@
+C:\Users\pelog\Documents\REPOS\prod-tools\image-annotator\imanno\bin\Debug\net8.0-windows\imanno.exe
+C:\Users\pelog\Documents\REPOS\prod-tools\image-annotator\imanno\bin\Debug\net8.0-windows\imanno.deps.json
+C:\Users\pelog\Documents\REPOS\prod-tools\image-annotator\imanno\bin\Debug\net8.0-windows\imanno.runtimeconfig.json
+C:\Users\pelog\Documents\REPOS\prod-tools\image-annotator\imanno\bin\Debug\net8.0-windows\imanno.dll
+C:\Users\pelog\Documents\REPOS\prod-tools\image-annotator\imanno\bin\Debug\net8.0-windows\imanno.pdb
+C:\Users\pelog\Documents\REPOS\prod-tools\image-annotator\imanno\obj\Debug\net8.0-windows\imanno.Form1.resources
+C:\Users\pelog\Documents\REPOS\prod-tools\image-annotator\imanno\obj\Debug\net8.0-windows\imanno.csproj.GenerateResource.cache
+C:\Users\pelog\Documents\REPOS\prod-tools\image-annotator\imanno\obj\Debug\net8.0-windows\imanno.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pelog\Documents\REPOS\prod-tools\image-annotator\imanno\obj\Debug\net8.0-windows\imanno.AssemblyInfoInputs.cache
+C:\Users\pelog\Documents\REPOS\prod-tools\image-annotator\imanno\obj\Debug\net8.0-windows\imanno.AssemblyInfo.cs
+C:\Users\pelog\Documents\REPOS\prod-tools\image-annotator\imanno\obj\Debug\net8.0-windows\imanno.csproj.CoreCompileInputs.cache
+C:\Users\pelog\Documents\REPOS\prod-tools\image-annotator\imanno\obj\Debug\net8.0-windows\imanno.sourcelink.json
+C:\Users\pelog\Documents\REPOS\prod-tools\image-annotator\imanno\obj\Debug\net8.0-windows\imanno.dll
+C:\Users\pelog\Documents\REPOS\prod-tools\image-annotator\imanno\obj\Debug\net8.0-windows\refint\imanno.dll
+C:\Users\pelog\Documents\REPOS\prod-tools\image-annotator\imanno\obj\Debug\net8.0-windows\imanno.pdb
+C:\Users\pelog\Documents\REPOS\prod-tools\image-annotator\imanno\obj\Debug\net8.0-windows\imanno.genruntimeconfig.cache
+C:\Users\pelog\Documents\REPOS\prod-tools\image-annotator\imanno\obj\Debug\net8.0-windows\ref\imanno.dll
