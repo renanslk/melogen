@@ -89,11 +89,6 @@ namespace imanno
             }
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void buttonTagsFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog tagsFilePicker = new OpenFileDialog();
@@ -106,21 +101,6 @@ namespace imanno
                 textBoxTagsFile.Text = tagsFilePicker.FileName;
                 tagsPath = tagsFilePicker.FileName;
             }
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

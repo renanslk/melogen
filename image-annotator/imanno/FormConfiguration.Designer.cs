@@ -83,16 +83,15 @@
             // 
             // textBoxTagsFile
             // 
-            textBoxTagsFile.Location = new Point(128, 78);
+            textBoxTagsFile.Location = new Point(128, 80);
             textBoxTagsFile.Name = "textBoxTagsFile";
             textBoxTagsFile.ReadOnly = true;
             textBoxTagsFile.Size = new Size(268, 23);
             textBoxTagsFile.TabIndex = 6;
-            textBoxTagsFile.TextChanged += textBox2_TextChanged;
             // 
             // buttonTagsFile
             // 
-            buttonTagsFile.Location = new Point(18, 78);
+            buttonTagsFile.Location = new Point(18, 80);
             buttonTagsFile.Name = "buttonTagsFile";
             buttonTagsFile.Size = new Size(104, 23);
             buttonTagsFile.TabIndex = 7;
@@ -111,6 +110,7 @@
             textBoxTagLeft.Size = new Size(42, 23);
             textBoxTagLeft.TabIndex = 9;
             textBoxTagLeft.Text = "[";
+            textBoxTagLeft.TextAlign = HorizontalAlignment.Right;
             // 
             // textBoxTagRight
             // 
@@ -163,7 +163,6 @@
             checkBoxMoveImages.TabIndex = 15;
             checkBoxMoveImages.Text = "Move images to output folder after classification";
             checkBoxMoveImages.UseVisualStyleBackColor = true;
-            checkBoxMoveImages.CheckedChanged += checkBox1_CheckedChanged;
             // 
             // groupBoxPathConfiguration
             // 
@@ -232,12 +231,12 @@
             panelGeneralConfig.Controls.Add(checkBoxMoveImages);
             panelGeneralConfig.Location = new Point(0, 352);
             panelGeneralConfig.Name = "panelGeneralConfig";
-            panelGeneralConfig.Size = new Size(426, 67);
+            panelGeneralConfig.Size = new Size(439, 67);
             panelGeneralConfig.TabIndex = 21;
             // 
             // buttonOpenAnnotator
             // 
-            buttonOpenAnnotator.Location = new Point(338, 10);
+            buttonOpenAnnotator.Location = new Point(350, 10);
             buttonOpenAnnotator.Name = "buttonOpenAnnotator";
             buttonOpenAnnotator.Size = new Size(75, 45);
             buttonOpenAnnotator.TabIndex = 17;
@@ -259,13 +258,12 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(425, 418);
+            ClientSize = new Size(437, 418);
             Controls.Add(panelGeneralConfig);
             Controls.Add(groupBoxPathConfiguration);
             Controls.Add(groupBoxLogConfiguration);
             Name = "FormConfig";
             Text = "ImAnno - Configuration";
-            Load += Form1_Load;
             groupBoxPathConfiguration.ResumeLayout(false);
             groupBoxPathConfiguration.PerformLayout();
             groupBoxLogConfiguration.ResumeLayout(false);
