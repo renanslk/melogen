@@ -39,6 +39,7 @@
             // 
             // pictureBoxCurrentImage
             // 
+            pictureBoxCurrentImage.BackColor = Color.LightGray;
             pictureBoxCurrentImage.Location = new Point(206, 46);
             pictureBoxCurrentImage.Name = "pictureBoxCurrentImage";
             pictureBoxCurrentImage.Size = new Size(448, 323);
@@ -48,7 +49,7 @@
             // 
             // flowLayoutPanelTags
             // 
-            flowLayoutPanelTags.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanelTags.BackColor = Color.MediumAquamarine;
             flowLayoutPanelTags.Location = new Point(3, 3);
             flowLayoutPanelTags.Name = "flowLayoutPanelTags";
             flowLayoutPanelTags.Size = new Size(179, 412);
@@ -57,7 +58,7 @@
             // labelFiles
             // 
             labelFiles.AutoSize = true;
-            labelFiles.Location = new Point(206, 22);
+            labelFiles.Location = new Point(206, 18);
             labelFiles.Name = "labelFiles";
             labelFiles.Size = new Size(89, 15);
             labelFiles.TabIndex = 2;
@@ -65,6 +66,7 @@
             // 
             // listBoxTagsSelected
             // 
+            listBoxTagsSelected.Enabled = false;
             listBoxTagsSelected.FormattingEnabled = true;
             listBoxTagsSelected.ItemHeight = 15;
             listBoxTagsSelected.Location = new Point(660, 46);
@@ -74,9 +76,9 @@
             // 
             // buttonSetTags
             // 
-            buttonSetTags.Location = new Point(487, 375);
+            buttonSetTags.Location = new Point(412, 375);
             buttonSetTags.Name = "buttonSetTags";
-            buttonSetTags.Size = new Size(75, 23);
+            buttonSetTags.Size = new Size(182, 40);
             buttonSetTags.TabIndex = 4;
             buttonSetTags.Text = "Set Tags";
             buttonSetTags.UseVisualStyleBackColor = true;
@@ -84,9 +86,9 @@
             // 
             // buttonSkip
             // 
-            buttonSkip.Location = new Point(331, 375);
+            buttonSkip.Location = new Point(241, 375);
             buttonSkip.Name = "buttonSkip";
-            buttonSkip.Size = new Size(75, 23);
+            buttonSkip.Size = new Size(165, 40);
             buttonSkip.TabIndex = 5;
             buttonSkip.Text = "Skip";
             buttonSkip.UseVisualStyleBackColor = true;
@@ -96,6 +98,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(800, 450);
             Controls.Add(buttonSkip);
             Controls.Add(buttonSetTags);

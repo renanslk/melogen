@@ -43,6 +43,7 @@ namespace imanno
         private void buttonSetTags_Click(object sender, EventArgs e)
         {
             goToNextImage();
+            clearData();
         }
 
         private void addOrRemoveTag()
