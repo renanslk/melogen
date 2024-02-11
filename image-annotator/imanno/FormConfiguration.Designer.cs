@@ -153,6 +153,7 @@
             buttonOutputPath.TabIndex = 13;
             buttonOutputPath.Text = "Output Folder";
             buttonOutputPath.UseVisualStyleBackColor = true;
+            buttonOutputPath.Click += buttonOutputPath_Click;
             // 
             // checkBoxMoveImages
             // 
@@ -242,6 +243,7 @@
             buttonOpenAnnotator.TabIndex = 17;
             buttonOpenAnnotator.Text = "Start";
             buttonOpenAnnotator.UseVisualStyleBackColor = true;
+            buttonOpenAnnotator.Click += buttonOpenAnnotator_Click;
             // 
             // checkBoxSearchSub
             // 
