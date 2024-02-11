@@ -264,7 +264,11 @@
             Controls.Add(panelGeneralConfig);
             Controls.Add(groupBoxPathConfiguration);
             Controls.Add(groupBoxLogConfiguration);
+            MaximizeBox = false;
+            MaximumSize = new Size(453, 457);
+            MinimumSize = new Size(453, 457);
             Name = "FormConfig";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "ImAnno - Configuration";
             groupBoxPathConfiguration.ResumeLayout(false);
             groupBoxPathConfiguration.PerformLayout();

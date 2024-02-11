@@ -32,6 +32,7 @@ namespace imanno
             {
                 imgIdx++;
                 pictureBoxCurrentImage.Image = Image.FromFile(images[imgIdx]);
+                labelFilename.Text = images[imgIdx].ToString();
                 labelFiles.Text = (imgIdx + 1) + " / " + images.Count;
             }
             else
@@ -56,7 +57,8 @@ namespace imanno
             listBoxTagsSelected.Items.Clear();
             foreach (Control control in flowLayoutPanelTags.Controls)
             {
-                control.BackColor = Color.Transparent;
+                if (control.Tag != null)
+                    control.BackColor = Color.WhiteSmoke;
             }
         }
 
@@ -66,7 +68,8 @@ namespace imanno
             if (images.Count > 0)
             {
                 pictureBoxCurrentImage.Image = Image.FromFile(images[imgIdx]);
-            
+                labelFilename.Text = images[imgIdx].ToString();
+
                 // Set label count text
                 labelFiles.Text = (imgIdx + 1) + " / " + images.Count;
             }
@@ -75,30 +78,37 @@ namespace imanno
             for (int i = 0; i < tagsList.Count; i++)
             {
                 Label tagCategory = new Label();
-               
+
                 tagCategory.Text = tagsList[i][0].ToString();
+                tagCategory.Width = flowLayoutPanelTags.Width;
+                tagCategory.Font = new Font(tagCategory.Font.FontFamily, 11, FontStyle.Bold);
+                tagCategory.ForeColor = Color.White;
                 flowLayoutPanelTags.Controls.Add(tagCategory);
 
                 // Split tags
                 string[] groupTags = tagsList[i][1].Split(',');
                 foreach (string tag in groupTags)
                 {
-                    LinkLabel linkTag = new LinkLabel();
-                    linkTag.Text = tag;
-                    linkTag.Tag = i;
-                    linkTag.Click += (s, e) => {
+                    Label tagLabel = new Label();
+                    tagLabel.Text = tag;
+                    tagLabel.Tag = i;
+                    tagLabel.AutoSize = true;
+                    tagLabel.BackColor = Color.White;
+                    tagLabel.Margin = new Padding(3, 3, 3, 3);
+                    tagLabel.Click += (s, e) =>
+                    {
                         if (listBoxTagsSelected.Items.Contains(tag))
                         {
                             listBoxTagsSelected.Items.Remove(tag);
-                            linkTag.BackColor = Color.Transparent;
+                            tagLabel.BackColor = Color.WhiteSmoke;
                         }
                         else
                         {
                             listBoxTagsSelected.Items.Add(tag);
-                            linkTag.BackColor = Color.Orange;
+                            tagLabel.BackColor = Color.MediumTurquoise;
                         }
                     };
-                    flowLayoutPanelTags.Controls.Add(linkTag);
+                    flowLayoutPanelTags.Controls.Add(tagLabel);
                 }
             }
         }

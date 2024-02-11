@@ -34,51 +34,65 @@
             listBoxTagsSelected = new ListBox();
             buttonSetTags = new Button();
             buttonSkip = new Button();
+            labelFilename = new Label();
+            labelTagsApplied = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCurrentImage).BeginInit();
             SuspendLayout();
             // 
             // pictureBoxCurrentImage
             // 
-            pictureBoxCurrentImage.BackColor = Color.LightGray;
-            pictureBoxCurrentImage.Location = new Point(206, 46);
+            pictureBoxCurrentImage.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pictureBoxCurrentImage.BackColor = Color.WhiteSmoke;
+            pictureBoxCurrentImage.Location = new Point(179, 41);
             pictureBoxCurrentImage.Name = "pictureBoxCurrentImage";
-            pictureBoxCurrentImage.Size = new Size(448, 323);
+            pictureBoxCurrentImage.Size = new Size(534, 364);
             pictureBoxCurrentImage.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxCurrentImage.TabIndex = 0;
             pictureBoxCurrentImage.TabStop = false;
             // 
             // flowLayoutPanelTags
             // 
-            flowLayoutPanelTags.BackColor = Color.MediumAquamarine;
-            flowLayoutPanelTags.Location = new Point(3, 3);
+            flowLayoutPanelTags.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            flowLayoutPanelTags.BackColor = Color.MediumSpringGreen;
+            flowLayoutPanelTags.Location = new Point(0, 0);
             flowLayoutPanelTags.Name = "flowLayoutPanelTags";
-            flowLayoutPanelTags.Size = new Size(179, 412);
+            flowLayoutPanelTags.Padding = new Padding(0, 5, 0, 0);
+            flowLayoutPanelTags.Size = new Size(179, 451);
             flowLayoutPanelTags.TabIndex = 1;
             // 
             // labelFiles
             // 
             labelFiles.AutoSize = true;
-            labelFiles.Location = new Point(206, 18);
+            labelFiles.BackColor = Color.Transparent;
+            labelFiles.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelFiles.ForeColor = Color.Black;
+            labelFiles.Location = new Point(185, 9);
             labelFiles.Name = "labelFiles";
-            labelFiles.Size = new Size(89, 15);
+            labelFiles.Size = new Size(46, 23);
             labelFiles.TabIndex = 2;
-            labelFiles.Text = "0 / 0 - Filename";
+            labelFiles.Text = "0 / 0";
             // 
             // listBoxTagsSelected
             // 
+            listBoxTagsSelected.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            listBoxTagsSelected.BorderStyle = BorderStyle.None;
             listBoxTagsSelected.Enabled = false;
+            listBoxTagsSelected.ForeColor = Color.Black;
             listBoxTagsSelected.FormattingEnabled = true;
             listBoxTagsSelected.ItemHeight = 15;
-            listBoxTagsSelected.Location = new Point(660, 46);
+            listBoxTagsSelected.Location = new Point(732, 32);
+            listBoxTagsSelected.MultiColumn = true;
             listBoxTagsSelected.Name = "listBoxTagsSelected";
-            listBoxTagsSelected.Size = new Size(116, 259);
+            listBoxTagsSelected.SelectionMode = SelectionMode.None;
+            listBoxTagsSelected.Size = new Size(64, 405);
             listBoxTagsSelected.TabIndex = 3;
             // 
             // buttonSetTags
             // 
-            buttonSetTags.Location = new Point(412, 375);
+            buttonSetTags.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonSetTags.Location = new Point(446, 405);
             buttonSetTags.Name = "buttonSetTags";
-            buttonSetTags.Size = new Size(182, 40);
+            buttonSetTags.Size = new Size(268, 45);
             buttonSetTags.TabIndex = 4;
             buttonSetTags.Text = "Set Tags";
             buttonSetTags.UseVisualStyleBackColor = true;
@@ -86,20 +100,48 @@
             // 
             // buttonSkip
             // 
-            buttonSkip.Location = new Point(241, 375);
+            buttonSkip.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonSkip.Location = new Point(179, 405);
             buttonSkip.Name = "buttonSkip";
-            buttonSkip.Size = new Size(165, 40);
+            buttonSkip.Size = new Size(268, 45);
             buttonSkip.TabIndex = 5;
             buttonSkip.Text = "Skip";
             buttonSkip.UseVisualStyleBackColor = true;
             buttonSkip.Click += buttonSkip_Click;
+            // 
+            // labelFilename
+            // 
+            labelFilename.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            labelFilename.BackColor = Color.White;
+            labelFilename.FlatStyle = FlatStyle.Popup;
+            labelFilename.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelFilename.ForeColor = Color.Black;
+            labelFilename.Location = new Point(251, 7);
+            labelFilename.Name = "labelFilename";
+            labelFilename.Size = new Size(452, 29);
+            labelFilename.TabIndex = 6;
+            labelFilename.Text = "Filename";
+            labelFilename.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // labelTagsApplied
+            // 
+            labelTagsApplied.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            labelTagsApplied.AutoSize = true;
+            labelTagsApplied.Font = new Font("Calibri", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelTagsApplied.Location = new Point(719, 9);
+            labelTagsApplied.Name = "labelTagsApplied";
+            labelTagsApplied.Size = new Size(44, 23);
+            labelTagsApplied.TabIndex = 7;
+            labelTagsApplied.Text = "Tags";
             // 
             // FormImageAnnotation
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(808, 450);
+            Controls.Add(labelTagsApplied);
+            Controls.Add(labelFilename);
             Controls.Add(buttonSkip);
             Controls.Add(buttonSetTags);
             Controls.Add(listBoxTagsSelected);
@@ -123,5 +165,7 @@
         private ListBox listBoxTagsSelected;
         private Button buttonSetTags;
         private Button buttonSkip;
+        private Label labelFilename;
+        private Label labelTagsApplied;
     }
 }
