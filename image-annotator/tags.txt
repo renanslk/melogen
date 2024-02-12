@@ -1,0 +1,3 @@
+colors: blue, red, yellow, green
+size: small, medium, large
+price: 10, 20, 30, 40
