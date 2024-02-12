@@ -36,6 +36,7 @@
             buttonSkip = new Button();
             labelFilename = new Label();
             labelTagsApplied = new Label();
+            buttonWrite = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCurrentImage).BeginInit();
             SuspendLayout();
             // 
@@ -84,7 +85,7 @@
             listBoxTagsSelected.MultiColumn = true;
             listBoxTagsSelected.Name = "listBoxTagsSelected";
             listBoxTagsSelected.SelectionMode = SelectionMode.None;
-            listBoxTagsSelected.Size = new Size(64, 405);
+            listBoxTagsSelected.Size = new Size(64, 360);
             listBoxTagsSelected.TabIndex = 3;
             // 
             // buttonSetTags
@@ -134,12 +135,23 @@
             labelTagsApplied.TabIndex = 7;
             labelTagsApplied.Text = "Tags";
             // 
+            // buttonWrite
+            // 
+            buttonWrite.Location = new Point(724, 403);
+            buttonWrite.Name = "buttonWrite";
+            buttonWrite.Size = new Size(75, 47);
+            buttonWrite.TabIndex = 8;
+            buttonWrite.Text = "Write Output";
+            buttonWrite.UseVisualStyleBackColor = true;
+            buttonWrite.Click += buttonWrite_Click;
+            // 
             // FormImageAnnotation
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(808, 450);
+            Controls.Add(buttonWrite);
             Controls.Add(labelTagsApplied);
             Controls.Add(labelFilename);
             Controls.Add(buttonSkip);
@@ -167,5 +179,6 @@
         private Button buttonSkip;
         private Label labelFilename;
         private Label labelTagsApplied;
+        private Button buttonWrite;
     }
 }

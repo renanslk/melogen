@@ -137,7 +137,14 @@ namespace imanno
             } 
             else
             {
-                FormImageAnnotation formImageAnnotation = new FormImageAnnotation(outputPath, images, tagsList);
+                FormImageAnnotation formImageAnnotation = new FormImageAnnotation(
+                    outputPath, 
+                    images, 
+                    tagsList,
+                    textBoxTagLeft.Text,
+                    textBoxTagRight.Text,
+                    textBoxTagSeparator.Text,
+                    richTextOutputPattern.Text);
                 formImageAnnotation.Show();
                 this.Hide();
             }
