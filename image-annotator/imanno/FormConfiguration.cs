@@ -44,9 +44,9 @@ namespace imanno
 
                 foreach (string file in selectedFiles)
                 {
-                    images.Add(file);
-                    // richTextOutputPattern.AppendText("\r\n" + file);
-                    // richTextOutputPattern.ScrollToCaret();
+                    // Avoid files already in output folder (!)
+                    if (!file.Contains(outputPath))
+                        images.Add(file);
                 }
             }
         }
@@ -80,7 +80,6 @@ namespace imanno
                             throw new Exception("Invalid tag selection!");
                         }
                     
-
                         // Construct category/tags list
                         List<string> tagsBundle = new List<string> { };
                         tagsBundle.Add(category);
@@ -121,7 +120,7 @@ namespace imanno
 
         private void buttonOpenAnnotator_Click(object sender, EventArgs e)
         {
-            populateImagesList(false);
+            populateImagesList(checkBoxSearchSub.Checked);
             getTagsFromFile();
 
             // Avoid null data
@@ -144,7 +143,8 @@ namespace imanno
                     textBoxTagLeft.Text,
                     textBoxTagRight.Text,
                     textBoxTagSeparator.Text,
-                    richTextOutputPattern.Text);
+                    richTextOutputPattern.Text,
+                    checkBoxMoveImages.Checked);
                 formImageAnnotation.Show();
                 this.Hide();
             }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormImageAnnotation));
             pictureBoxCurrentImage = new PictureBox();
             flowLayoutPanelTags = new FlowLayoutPanel();
             labelFiles = new Label();
@@ -44,12 +45,14 @@
             // 
             pictureBoxCurrentImage.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pictureBoxCurrentImage.BackColor = Color.WhiteSmoke;
+            pictureBoxCurrentImage.Image = Properties.Resources.end;
             pictureBoxCurrentImage.Location = new Point(179, 41);
             pictureBoxCurrentImage.Name = "pictureBoxCurrentImage";
             pictureBoxCurrentImage.Size = new Size(534, 364);
             pictureBoxCurrentImage.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxCurrentImage.TabIndex = 0;
             pictureBoxCurrentImage.TabStop = false;
+            pictureBoxCurrentImage.WaitOnLoad = true;
             // 
             // flowLayoutPanelTags
             // 
@@ -117,9 +120,9 @@
             labelFilename.FlatStyle = FlatStyle.Popup;
             labelFilename.Font = new Font("Calibri", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelFilename.ForeColor = Color.Black;
-            labelFilename.Location = new Point(251, 7);
+            labelFilename.Location = new Point(277, 7);
             labelFilename.Name = "labelFilename";
-            labelFilename.Size = new Size(452, 29);
+            labelFilename.Size = new Size(426, 29);
             labelFilename.TabIndex = 6;
             labelFilename.Text = "Filename";
             labelFilename.TextAlign = ContentAlignment.MiddleLeft;
@@ -160,6 +163,7 @@
             Controls.Add(labelFiles);
             Controls.Add(flowLayoutPanelTags);
             Controls.Add(pictureBoxCurrentImage);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormImageAnnotation";
             Text = "ImAnno - Annotate Image";
             FormClosing += FormImageAnnotation_FormClosing;
