@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormConfig));
             folderBrowserDialog1 = new FolderBrowserDialog();
             richTextOutputPattern = new RichTextBox();
             buttonInputPath = new Button();
@@ -61,7 +62,7 @@
             richTextOutputPattern.Name = "richTextOutputPattern";
             richTextOutputPattern.Size = new Size(378, 72);
             richTextOutputPattern.TabIndex = 0;
-            richTextOutputPattern.Text = "Processed <filename> - <tags>";
+            richTextOutputPattern.Text = "Processed: <filename> Tags: <tags>";
             // 
             // buttonInputPath
             // 
@@ -264,6 +265,7 @@
             Controls.Add(panelGeneralConfig);
             Controls.Add(groupBoxPathConfiguration);
             Controls.Add(groupBoxLogConfiguration);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MaximumSize = new Size(453, 457);
             MinimumSize = new Size(453, 457);
