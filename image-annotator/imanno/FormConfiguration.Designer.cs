@@ -51,9 +51,14 @@
             panelGeneralConfig = new Panel();
             buttonOpenAnnotator = new Button();
             checkBoxSearchSub = new CheckBox();
+            menuStrip1 = new MenuStrip();
+            aToolStripMenuItem = new ToolStripMenuItem();
+            aboutToolStripMenuItem1 = new ToolStripMenuItem();
+            userGuideToolStripMenuItem = new ToolStripMenuItem();
             groupBoxPathConfiguration.SuspendLayout();
             groupBoxLogConfiguration.SuspendLayout();
             panelGeneralConfig.SuspendLayout();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // richTextOutputPattern
@@ -62,7 +67,7 @@
             richTextOutputPattern.Name = "richTextOutputPattern";
             richTextOutputPattern.Size = new Size(378, 72);
             richTextOutputPattern.TabIndex = 0;
-            richTextOutputPattern.Text = "Processed: <filename> Tags: <tags>";
+            richTextOutputPattern.Text = "Processed: <filename> Tags: <tags> Authors: <authors>";
             // 
             // buttonInputPath
             // 
@@ -110,7 +115,7 @@
             textBoxTagLeft.Name = "textBoxTagLeft";
             textBoxTagLeft.Size = new Size(42, 23);
             textBoxTagLeft.TabIndex = 9;
-            textBoxTagLeft.Text = "[";
+            textBoxTagLeft.Text = "\"";
             textBoxTagLeft.TextAlign = HorizontalAlignment.Right;
             // 
             // textBoxTagRight
@@ -119,7 +124,7 @@
             textBoxTagRight.Name = "textBoxTagRight";
             textBoxTagRight.Size = new Size(42, 23);
             textBoxTagRight.TabIndex = 10;
-            textBoxTagRight.Text = "]";
+            textBoxTagRight.Text = "\"";
             // 
             // textBoxTagSeparator
             // 
@@ -174,7 +179,7 @@
             groupBoxPathConfiguration.Controls.Add(buttonOutputPath);
             groupBoxPathConfiguration.Controls.Add(textBoxInputFolder);
             groupBoxPathConfiguration.Controls.Add(buttonInputPath);
-            groupBoxPathConfiguration.Location = new Point(12, 21);
+            groupBoxPathConfiguration.Location = new Point(12, 29);
             groupBoxPathConfiguration.Name = "groupBoxPathConfiguration";
             groupBoxPathConfiguration.Size = new Size(414, 125);
             groupBoxPathConfiguration.TabIndex = 19;
@@ -191,7 +196,7 @@
             groupBoxLogConfiguration.Controls.Add(richTextOutputPattern);
             groupBoxLogConfiguration.Controls.Add(textBoxTagRight);
             groupBoxLogConfiguration.Controls.Add(textBoxTagLeft);
-            groupBoxLogConfiguration.Location = new Point(12, 153);
+            groupBoxLogConfiguration.Location = new Point(12, 161);
             groupBoxLogConfiguration.Name = "groupBoxLogConfiguration";
             groupBoxLogConfiguration.Size = new Size(414, 184);
             groupBoxLogConfiguration.TabIndex = 20;
@@ -221,13 +226,13 @@
             labelTagDecoration.AutoSize = true;
             labelTagDecoration.Location = new Point(18, 19);
             labelTagDecoration.Name = "labelTagDecoration";
-            labelTagDecoration.Size = new Size(83, 15);
+            labelTagDecoration.Size = new Size(128, 15);
             labelTagDecoration.TabIndex = 0;
-            labelTagDecoration.Text = "Tags formatter";
+            labelTagDecoration.Text = "Tags/authors formatter";
             // 
             // panelGeneralConfig
             // 
-            panelGeneralConfig.BackColor = Color.MediumSpringGreen;
+            panelGeneralConfig.BackColor = Color.LightBlue;
             panelGeneralConfig.Controls.Add(buttonOpenAnnotator);
             panelGeneralConfig.Controls.Add(checkBoxSearchSub);
             panelGeneralConfig.Controls.Add(checkBoxMoveImages);
@@ -256,6 +261,35 @@
             checkBoxSearchSub.Text = "Also get images from subfolders";
             checkBoxSearchSub.UseVisualStyleBackColor = true;
             // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { aToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(437, 24);
+            menuStrip1.TabIndex = 22;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // aToolStripMenuItem
+            // 
+            aToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem1, userGuideToolStripMenuItem });
+            aToolStripMenuItem.Name = "aToolStripMenuItem";
+            aToolStripMenuItem.Size = new Size(44, 20);
+            aToolStripMenuItem.Text = "&Help";
+            // 
+            // aboutToolStripMenuItem1
+            // 
+            aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
+            aboutToolStripMenuItem1.Size = new Size(180, 22);
+            aboutToolStripMenuItem1.Text = "&About";
+            aboutToolStripMenuItem1.Click += aboutToolStripMenuItem1_Click_1;
+            // 
+            // userGuideToolStripMenuItem
+            // 
+            userGuideToolStripMenuItem.Name = "userGuideToolStripMenuItem";
+            userGuideToolStripMenuItem.Size = new Size(180, 22);
+            userGuideToolStripMenuItem.Text = "&User Guide";
+            // 
             // FormConfig
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -265,7 +299,9 @@
             Controls.Add(panelGeneralConfig);
             Controls.Add(groupBoxPathConfiguration);
             Controls.Add(groupBoxLogConfiguration);
+            Controls.Add(menuStrip1);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MainMenuStrip = menuStrip1;
             MaximizeBox = false;
             MaximumSize = new Size(453, 457);
             MinimumSize = new Size(453, 457);
@@ -278,7 +314,10 @@
             groupBoxLogConfiguration.PerformLayout();
             panelGeneralConfig.ResumeLayout(false);
             panelGeneralConfig.PerformLayout();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -305,5 +344,9 @@
         private Panel panelGeneralConfig;
         private CheckBox checkBoxSearchSub;
         private Button buttonOpenAnnotator;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem aToolStripMenuItem;
+        private ToolStripMenuItem aboutToolStripMenuItem1;
+        private ToolStripMenuItem userGuideToolStripMenuItem;
     }
 }

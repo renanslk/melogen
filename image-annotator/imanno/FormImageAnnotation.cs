@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Text.RegularExpressions;
 using static System.Net.Mime.MediaTypeNames;
 using Image = System.Drawing.Image;
 
@@ -17,21 +8,21 @@ namespace imanno
     {
         private string outputPath;
         private List<string> images;
-        private List<List<string>> tagsList;
+        private Dictionary<string, List<string>> tags;
         private string leftTagPattern;
         private string rightTagPattern;
         private string separatorTagPattern;
         private string logPattern;
         private bool moveImagesConfig;
 
-        private int imgIdx = 0;
+        private int imgIdx = -1;
         private List<string> imageLogs = new List<string>();
 
-        public FormImageAnnotation(string outputPath, List<string> images, List<List<string>> tagsList, string leftTagPattern, string rightTagPattern, string separatorTagPattern, string logPattern, bool moveImagesConfig)
+        public FormImageAnnotation(string outputPath, List<string> images, Dictionary<string, List<string>> tags, string leftTagPattern, string rightTagPattern, string separatorTagPattern, string logPattern, bool moveImagesConfig)
         {
             this.outputPath = outputPath;
             this.images = images;
-            this.tagsList = tagsList;
+            this.tags = tags;
             this.leftTagPattern = leftTagPattern;
             this.rightTagPattern = rightTagPattern;
             this.separatorTagPattern = separatorTagPattern;
@@ -41,82 +32,20 @@ namespace imanno
             InitializeComponent();
         }
 
-        private void goToNextImage()
+        private void disableControls()
         {
-            if (imgIdx < images.Count - 1)
-            {
-                pictureBoxCurrentImage.Image.Dispose();
-
-                imgIdx++;
-                //pictureBoxCurrentImage.Image = Image.FromFile(images[imgIdx]);
-                using (var img = Image.FromFile(images[imgIdx]))
-                {
-                    pictureBoxCurrentImage.Image = (Image)img.Clone();
-                }
-                /*Image img;
-                using (var bmpTemp = new Bitmap(images[imgIdx]))
-                {
-                    img = new Bitmap(bmpTemp);
-                }*/
-
-                labelFilename.Text = images[imgIdx].ToString();
-                labelFiles.Text = (imgIdx + 1) + " / " + images.Count;
-            }
-            else
-            {
-                // Clear picture box image
-                // Why this still is being used???
-                using (var img = imanno.Properties.Resources.end)
-                {
-                    pictureBoxCurrentImage.Image = (Image)img.Clone();
-                }
-
-                MessageBox.Show("End of list", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                imgIdx = images.Count;
-
-                // Disable skip and set buttons
-                buttonSetTags.Enabled = false;
-                buttonSkip.Enabled = false;
-            }
-        }
-
-        private void buttonSetTags_Click(object sender, EventArgs e)
-        {
-            string logLine = "";
-            string tagLine = "";
-
-            // Set tags for image
-            foreach (var tag in listBoxTagsSelected.Items)
-            {
-                tagLine += leftTagPattern + tag + rightTagPattern + separatorTagPattern;
-            }
-            // Remove extra separator
-            if ((separatorTagPattern != "") && (tagLine != ""))
-                tagLine = tagLine.Remove(tagLine.LastIndexOf(separatorTagPattern));
-
-            // Replace elements in pattern
-            logLine = logPattern.Replace("<filename>", images[imgIdx].Split("\\").Last())
-                .Replace("<tags>", tagLine);
-
-            imageLogs.Add(logLine);
-
-            goToNextImage();
+            buttonSetTags.Enabled = false;
+            buttonSkip.Enabled = false;
             clearData();
-
-            // Move previous image to output
-            if (moveImagesConfig) {
-                string pathFrom = images[imgIdx - 1];
-                string pathTo = outputPath + "\\" + images[imgIdx - 1].Split("\\").Last();
-                
-                // Avoid files from output folder to be moved
-                //if (!pathFrom.Equals(pathTo))
-                File.Move(pathFrom, pathTo);
-            }
         }
 
         private void clearData()
         {
             listBoxTagsSelected.Items.Clear();
+
+            listBoxAuthorsSelected.Items.Clear();
+            listBoxAuthorsSelected.Items.Add("unknown");
+
             foreach (Control control in flowLayoutPanelTags.Controls)
             {
                 if (control.Tag != null)
@@ -124,45 +53,202 @@ namespace imanno
             }
         }
 
-        private void FormImageAnnotation_Load(object sender, EventArgs e)
+        private void flushPicturebox()
         {
-            // Set first image from list
-            if (images.Count > 0)
-            {
-                //pictureBoxCurrentImage.Image = Image.FromFile(images[imgIdx]);
-                using (var img = Image.FromFile(images[imgIdx]))
-                {
-                    pictureBoxCurrentImage.Image = (Image)img.Clone();
-                }
-                labelFilename.Text = images[imgIdx].ToString();
+            pictureBoxCurrentImage.Image.Dispose();
+        }
 
-                // Set label count text
-                labelFiles.Text = (imgIdx + 1) + " / " + images.Count;
+        private void updateFileInfo(string style, string filePath, int fileNumber)
+        {
+            labelFilename.Text = filePath;
+            labelFiles.Text = (imgIdx + 1) + " / " + images.Count;
+
+            if (style.Equals("error"))
+            {
+                labelFilename.ForeColor = Color.Red;
+            }
+            if (style.Equals("info"))
+            {
+                labelFilename.ForeColor = Color.Black;
+            }
+        }
+
+        private void goToNextImage()
+        {
+            if (imgIdx < images.Count - 1)
+            {
+                imgIdx++;
+                if (Utils.pathExists("file", images[imgIdx]))
+                {
+                    if (pictureBoxCurrentImage.Image != null)
+                        flushPicturebox();
+                    
+                    pictureBoxCurrentImage.Image = Image.FromFile(images[imgIdx]);
+
+                    updateFileInfo("info", images[imgIdx], imgIdx + 1);
+                }
+                else
+                {
+                    if (pictureBoxCurrentImage.Image != null)
+                        pictureBoxCurrentImage.Image = null;
+
+                    updateFileInfo("error", images[imgIdx], imgIdx + 1);
+
+                    DialogResult result = MessageBox.Show("The file '" + images[imgIdx] + "' doesn't exists or has been moved. Continue?", "Image not found", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    if (result == DialogResult.OK)
+                    {
+                        clearData();
+                        goToNextImage();
+                    }
+                    else if (result == DialogResult.Cancel)
+                    {
+                        MessageBox.Show("Writing intermediate log file to save your work.",
+                            "Operation aborted",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Exclamation);
+
+                        writeLogFile();
+                        disableControls();
+
+                        System.Windows.Forms.Application.Exit();
+                    }
+                }
+            }
+            else
+            {
+                flushPicturebox();
+                pictureBoxCurrentImage.Image = null;
+
+                MessageBox.Show("End of list!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                disableControls();
+            }
+        }
+
+        private string moveFile(string pathFrom, string pathTo)
+        {
+            string finalFilename = pathTo.Split("\\").Last();
+
+            if (!File.Exists(pathTo))
+            {
+                File.Move(pathFrom, pathTo);
+            }
+            else
+            {
+                string newName = renameFile(pathTo.Split("\\").Last());
+                string newPathTo = outputPath + "\\" + newName;
+                finalFilename = moveFile(pathFrom, newPathTo);
             }
 
-            // Set tags
-            for (int i = 0; i < tagsList.Count; i++)
+            return finalFilename;
+        }
+
+        private string renameFile(string filename)
+        {
+            string text = filename;
+            string pat = @"^(.*)\(([0-9]+)\)(\.[a-z]+)$"; // ...(n).ext
+            string newName = "";
+
+            Regex r = new Regex(pat, RegexOptions.IgnoreCase);
+            Match m = r.Match(text);
+            
+            if (m.Success)
             {
-                Label tagCategory = new Label();
+                Group g = m.Groups[2];
 
-                tagCategory.Text = tagsList[i][0].ToString();
-                tagCategory.Width = flowLayoutPanelTags.Width;
-                tagCategory.Font = new System.Drawing.Font(tagCategory.Font.FontFamily, 11, FontStyle.Bold);
-                tagCategory.ForeColor = Color.White;
-                flowLayoutPanelTags.Controls.Add(tagCategory);
+                int newCopy = int.Parse(g.Value) + 1;
+                string newFilename = Regex.Replace(text, pat, m.Groups[1] + "(" + newCopy + ")" + m.Groups[3]);
 
-                // Split tags
-                string[] groupTags = tagsList[i][1].Split(",");
-                foreach (string tag in groupTags)
+                newName = newFilename;
+            }
+            else
+            {
+                int extDotIdx = filename.LastIndexOf('.');
+                string filenamePart = filename.Substring(0, extDotIdx);
+                string ext = filename.Substring(extDotIdx + 1);
+                newName = filenamePart + " (1)." + ext;
+            }
+            return newName;
+        }
+
+        private void buttonSetTags_Click(object sender, EventArgs e)
+        {
+            string logLine = "";
+            string tagLine = "";
+            string authorLine = "";
+
+            foreach (string tag in listBoxTagsSelected.Items)
+                tagLine += leftTagPattern + tag + rightTagPattern + separatorTagPattern;
+            foreach (string author in listBoxAuthorsSelected.Items)
+                authorLine += leftTagPattern + author + rightTagPattern + separatorTagPattern;
+
+            // Remove extra separator
+            if ((separatorTagPattern != "") && (tagLine != ""))
+                tagLine = tagLine.Remove(tagLine.LastIndexOf(separatorTagPattern));
+            if ((separatorTagPattern != "") && (authorLine != ""))
+                authorLine = authorLine.Remove(authorLine.LastIndexOf(separatorTagPattern));
+
+            string finalFilename = images[imgIdx].Split("\\").Last();
+
+            if (moveImagesConfig)
+            {
+                flushPicturebox();
+                string pathFrom = images[imgIdx];
+                string pathTo = outputPath + "\\" + images[imgIdx].Split("\\").Last();
+
+                finalFilename = moveFile(pathFrom, pathTo);
+            }
+
+            logLine = logPattern
+                .Replace("<filename>", finalFilename)
+                .Replace("<tags>", tagLine)
+                .Replace("<authors>", authorLine);
+            imageLogs.Add(logLine);
+
+            clearData();
+            goToNextImage();
+        }
+
+        private void fillTagsStructures()
+        {
+            foreach (var elem in tags)
+            {
+                if ((elem.Key.Equals("author")) || (elem.Key.Equals("authors")))
                 {
-                    if (tag != null)
+                    elem.Value.Sort();
+                    foreach (string tag in elem.Value)
                     {
-                        Label tagLabel = new Label();
-                        tagLabel.Text = tag;
-                        tagLabel.Tag = i;
-                        tagLabel.AutoSize = true;
-                        tagLabel.BackColor = Color.White;
-                        tagLabel.Margin = new Padding(3, 3, 3, 3);
+                        if (!listBoxAuthor.Items.Contains(tag))
+                        {
+                            listBoxAuthor.Items.Add(tag);
+                        }
+                    }
+                }
+                else
+                {
+                    Label tagCategory = new Label
+                    {
+                        Text = elem.Key.ToUpperInvariant(),
+                        Font = new System.Drawing.Font(Font.FontFamily, 11, FontStyle.Bold),
+                        ForeColor = Color.Black,
+                        AutoSize = true
+                    };
+
+                    flowLayoutPanelTags.Controls.Add(tagCategory);
+                    flowLayoutPanelTags.SetFlowBreak(tagCategory, true);
+
+                    elem.Value.Sort();
+                    foreach (string tag in elem.Value)
+                    {
+                        Label tagLabel = new Label
+                        {
+                            Text = tag,
+                            Tag = 0,
+                            AutoSize = true,
+                            BackColor = Color.White,
+                            Margin = new Padding(3, 3, 3, 3),
+                        };
+
                         tagLabel.Click += (s, e) =>
                         {
                             if (listBoxTagsSelected.Items.Contains(tag))
@@ -176,10 +262,22 @@ namespace imanno
                                 tagLabel.BackColor = Color.MediumTurquoise;
                             }
                         };
+
                         flowLayoutPanelTags.Controls.Add(tagLabel);
+
+                        if (tag == elem.Value.Last())
+                        {
+                            flowLayoutPanelTags.SetFlowBreak(tagLabel, true);
+                        }
                     }
                 }
             }
+        }
+
+        private void FormImageAnnotation_Load(object sender, EventArgs e)
+        {
+            goToNextImage();
+            fillTagsStructures();
         }
 
         private void FormImageAnnotation_FormClosing(object sender, FormClosingEventArgs e)
@@ -193,49 +291,61 @@ namespace imanno
             clearData();
         }
 
-        private void buttonWrite_Click(object sender, EventArgs e)
+        private void writeLogFile()
         {
             if (imageLogs.Count == 0)
             {
-                MessageBox.Show("Empty image buffer. Tag at least one image before trying to write a file.",
+                MessageBox.Show("There's no data to write a log file.",
                     "No tagged images",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Exclamation);
             }
             else
             {
-                // Get current Date-Time
                 DateTime now = DateTime.Now;
                 string nowFormatted = now.ToString("yyyyMMddHHmmss");
 
                 string outputFilename = "imAnnoLog_" + nowFormatted + ".txt";
                 string file = outputPath + "\\" + outputFilename;
 
-                // Create file
-                if (!File.Exists(file))
-                {
-                    File.Create(file).Close();
-                }
+                Utils.writeFile(file, imageLogs);
 
-                // Writes to file
-                var fs = new FileStream(file, FileMode.Open);
-                var stream = new StreamWriter(fs);
-
-                foreach (string log in imageLogs)
-                {
-                    // write each line to the stream
-                    stream.WriteLine(log);
-                }
-                stream.Close();
-                //fs.Close();
-
-                MessageBox.Show("File '" + outputFilename + "' has been written!", 
+                MessageBox.Show("File '" + outputFilename + "' has been written!",
                     "File written sucessfully",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
 
-                // Clear images already tagged
+                // Clear current log buffer
                 imageLogs.Clear();
+            }
+        }
+
+        private void buttonWrite_Click(object sender, EventArgs e)
+        {
+            writeLogFile();
+        }
+
+        private void listBoxAuthor_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (listBoxAuthor.SelectedItem != null)
+            {
+                string elem = listBoxAuthor.SelectedItem.ToString();
+                if (listBoxAuthorsSelected.Items.Contains(elem))
+                {
+                    listBoxAuthorsSelected.Items.Remove(elem);
+                    if (listBoxAuthorsSelected.Items.Count == 0)
+                    {
+                        listBoxAuthorsSelected.Items.Add("unknown");
+                    }
+                }
+                else
+                {
+                    listBoxAuthorsSelected.Items.Add(elem);
+                    if (listBoxAuthorsSelected.Items.Contains ("unknown"))
+                    {
+                        listBoxAuthorsSelected.Items.Remove("unknown");
+                    }
+                }
             }
         }
     }

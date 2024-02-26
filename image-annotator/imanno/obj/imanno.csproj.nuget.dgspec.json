@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\pelog\\Documents\\REPOS\\prod-tools\\image-annotator\\imanno\\imanno.csproj": {}
+    "D:\\Data\\repos\\prod-tools\\image-annotator\\imanno\\imanno.csproj": {}
   },
   "projects": {
-    "C:\\Users\\pelog\\Documents\\REPOS\\prod-tools\\image-annotator\\imanno\\imanno.csproj": {
+    "D:\\Data\\repos\\prod-tools\\image-annotator\\imanno\\imanno.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pelog\\Documents\\REPOS\\prod-tools\\image-annotator\\imanno\\imanno.csproj",
+        "projectUniqueName": "D:\\Data\\repos\\prod-tools\\image-annotator\\imanno\\imanno.csproj",
         "projectName": "imanno",
-        "projectPath": "C:\\Users\\pelog\\Documents\\REPOS\\prod-tools\\image-annotator\\imanno\\imanno.csproj",
-        "packagesPath": "C:\\Users\\pelog\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pelog\\Documents\\REPOS\\prod-tools\\image-annotator\\imanno\\obj\\",
+        "projectPath": "D:\\Data\\repos\\prod-tools\\image-annotator\\imanno\\imanno.csproj",
+        "packagesPath": "C:\\Users\\Renan\\.nuget\\packages\\",
+        "outputPath": "D:\\Data\\repos\\prod-tools\\image-annotator\\imanno\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\pelog\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Renan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
