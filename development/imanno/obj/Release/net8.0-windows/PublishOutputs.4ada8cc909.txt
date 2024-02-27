@@ -1,5 +1,0 @@
-D:\Data\repos\prod-tools\image-annotator\imanno\bin\Release\net8.0-windows\publish\imanno.exe
-D:\Data\repos\prod-tools\image-annotator\imanno\bin\Release\net8.0-windows\publish\imanno.dll
-D:\Data\repos\prod-tools\image-annotator\imanno\bin\Release\net8.0-windows\publish\imanno.deps.json
-D:\Data\repos\prod-tools\image-annotator\imanno\bin\Release\net8.0-windows\publish\imanno.runtimeconfig.json
-D:\Data\repos\prod-tools\image-annotator\imanno\bin\Release\net8.0-windows\publish\imanno.pdb

@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "5vUJiJ4SGiNpQQW2Cjl7b/ceXXqvpkAQuA0sTHKZiGwCT4IIOfpST2Cb5oQ6ZId/CNSkoXGh9E9Hr5YPz5QBdA==",
+  "success": true,
+  "projectFilePath": "D:\\Data\\repos\\prod-tools\\development\\melogen\\melogen.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Renan\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.1\\microsoft.net.illink.tasks.8.0.1.nupkg.sha512",
+    "C:\\Users\\Renan\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x86\\8.0.1\\microsoft.netcore.app.runtime.win-x86.8.0.1.nupkg.sha512",
+    "C:\\Users\\Renan\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x86\\8.0.1\\microsoft.windowsdesktop.app.runtime.win-x86.8.0.1.nupkg.sha512",
+    "C:\\Users\\Renan\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x86\\8.0.1\\microsoft.aspnetcore.app.runtime.win-x86.8.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
