@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("melogen")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+25cfbcd27516e1e30d98bcd25088316ed5720d98")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+23e0143c81316c94ea6880845609cd6b3e5850e5")]
 [assembly: System.Reflection.AssemblyProductAttribute("melogen")]
 [assembly: System.Reflection.AssemblyTitleAttribute("melogen")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
