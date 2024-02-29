@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace imanno
+namespace melogen
 {
     public partial class FormConfig : Form
     {

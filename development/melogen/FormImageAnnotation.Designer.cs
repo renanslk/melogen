@@ -1,4 +1,4 @@
-﻿namespace imanno
+﻿namespace melogen
 {
     partial class FormImageAnnotation
     {
@@ -49,6 +49,17 @@
             listBoxAuthorsSelected = new ListBox();
             labelAuthorsAttached = new Label();
             labelTagsAttached = new Label();
+            menuStrip1 = new MenuStrip();
+            fileToolStripMenuItem = new ToolStripMenuItem();
+            skipFileToolStripMenuItem = new ToolStripMenuItem();
+            setTagsToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripSeparator();
+            writeTaggedFilesToolStripMenuItem = new ToolStripMenuItem();
+            toolsToolStripMenuItem = new ToolStripMenuItem();
+            clearAllTagsToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem2 = new ToolStripSeparator();
+            addCustomTagToolStripMenuItem = new ToolStripMenuItem();
+            addCustomAuthorToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCurrentImage).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
@@ -58,15 +69,16 @@
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel4.SuspendLayout();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // pictureBoxCurrentImage
             // 
             pictureBoxCurrentImage.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pictureBoxCurrentImage.BackColor = Color.Transparent;
-            pictureBoxCurrentImage.Location = new Point(13, 16);
+            pictureBoxCurrentImage.Location = new Point(13, 51);
             pictureBoxCurrentImage.Name = "pictureBoxCurrentImage";
-            pictureBoxCurrentImage.Size = new Size(623, 468);
+            pictureBoxCurrentImage.Size = new Size(623, 387);
             pictureBoxCurrentImage.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxCurrentImage.TabIndex = 0;
             pictureBoxCurrentImage.TabStop = false;
@@ -79,7 +91,7 @@
             flowLayoutPanelTags.BackColor = Color.Transparent;
             flowLayoutPanelTags.Location = new Point(13, 38);
             flowLayoutPanelTags.Name = "flowLayoutPanelTags";
-            flowLayoutPanelTags.Size = new Size(203, 382);
+            flowLayoutPanelTags.Size = new Size(203, 359);
             flowLayoutPanelTags.TabIndex = 1;
             // 
             // labelFiles
@@ -106,7 +118,7 @@
             listBoxTagsSelected.MultiColumn = true;
             listBoxTagsSelected.Name = "listBoxTagsSelected";
             listBoxTagsSelected.SelectionMode = SelectionMode.None;
-            listBoxTagsSelected.Size = new Size(113, 300);
+            listBoxTagsSelected.Size = new Size(113, 255);
             listBoxTagsSelected.TabIndex = 3;
             // 
             // buttonSetTags
@@ -159,7 +171,7 @@
             // buttonWrite
             // 
             buttonWrite.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonWrite.Location = new Point(19, 554);
+            buttonWrite.Location = new Point(19, 514);
             buttonWrite.Name = "buttonWrite";
             buttonWrite.Size = new Size(113, 47);
             buttonWrite.TabIndex = 8;
@@ -175,7 +187,7 @@
             listBoxAuthor.Items.AddRange(new object[] { "unknown" });
             listBoxAuthor.Location = new Point(13, 36);
             listBoxAuthor.Name = "listBoxAuthor";
-            listBoxAuthor.Size = new Size(195, 124);
+            listBoxAuthor.Size = new Size(195, 109);
             listBoxAuthor.TabIndex = 9;
             listBoxAuthor.MouseDoubleClick += listBoxAuthor_MouseDoubleClick;
             // 
@@ -184,9 +196,9 @@
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = Color.SlateGray;
             panel1.Controls.Add(pictureBoxCurrentImage);
-            panel1.Location = new Point(220, 50);
+            panel1.Location = new Point(220, 96);
             panel1.Name = "panel1";
-            panel1.Size = new Size(650, 500);
+            panel1.Size = new Size(650, 454);
             panel1.TabIndex = 10;
             // 
             // labelTagHeader
@@ -213,7 +225,7 @@
             // 
             splitContainer1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             splitContainer1.BackColor = Color.SlateGray;
-            splitContainer1.Location = new Point(0, 0);
+            splitContainer1.Location = new Point(0, 31);
             splitContainer1.Name = "splitContainer1";
             splitContainer1.Orientation = Orientation.Horizontal;
             // 
@@ -230,8 +242,8 @@
             splitContainer1.Panel2.Controls.Add(labelAuthorHeader);
             splitContainer1.Panel2.Controls.Add(listBoxAuthor);
             splitContainer1.Panel2MinSize = 120;
-            splitContainer1.Size = new Size(220, 608);
-            splitContainer1.SplitterDistance = 432;
+            splitContainer1.Size = new Size(220, 577);
+            splitContainer1.SplitterDistance = 409;
             splitContainer1.TabIndex = 14;
             // 
             // panel2
@@ -240,7 +252,7 @@
             panel2.BackColor = Color.Gainsboro;
             panel2.Controls.Add(labelFilename);
             panel2.Controls.Add(labelFiles);
-            panel2.Location = new Point(220, 0);
+            panel2.Location = new Point(220, 40);
             panel2.Name = "panel2";
             panel2.Size = new Size(650, 50);
             panel2.TabIndex = 15;
@@ -266,9 +278,9 @@
             panel4.Controls.Add(labelTagsApplied);
             panel4.Controls.Add(listBoxTagsSelected);
             panel4.Controls.Add(buttonWrite);
-            panel4.Location = new Point(870, 0);
+            panel4.Location = new Point(870, 40);
             panel4.Name = "panel4";
-            panel4.Size = new Size(144, 608);
+            panel4.Size = new Size(144, 568);
             panel4.TabIndex = 17;
             // 
             // listBoxAuthorsSelected
@@ -280,7 +292,7 @@
             listBoxAuthorsSelected.FormattingEnabled = true;
             listBoxAuthorsSelected.ItemHeight = 15;
             listBoxAuthorsSelected.Items.AddRange(new object[] { "unknown" });
-            listBoxAuthorsSelected.Location = new Point(19, 415);
+            listBoxAuthorsSelected.Location = new Point(19, 375);
             listBoxAuthorsSelected.MultiColumn = true;
             listBoxAuthorsSelected.Name = "listBoxAuthorsSelected";
             listBoxAuthorsSelected.SelectionMode = SelectionMode.None;
@@ -292,7 +304,7 @@
             labelAuthorsAttached.Anchor = AnchorStyles.Bottom;
             labelAuthorsAttached.AutoSize = true;
             labelAuthorsAttached.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelAuthorsAttached.Location = new Point(6, 394);
+            labelAuthorsAttached.Location = new Point(6, 354);
             labelAuthorsAttached.Name = "labelAuthorsAttached";
             labelAuthorsAttached.Size = new Size(71, 18);
             labelAuthorsAttached.TabIndex = 10;
@@ -309,6 +321,81 @@
             labelTagsAttached.TabIndex = 9;
             labelTagsAttached.Text = "Tags";
             // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, toolsToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(1014, 24);
+            menuStrip1.TabIndex = 18;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { skipFileToolStripMenuItem, setTagsToolStripMenuItem, toolStripMenuItem1, writeTaggedFilesToolStripMenuItem });
+            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            fileToolStripMenuItem.Size = new Size(37, 20);
+            fileToolStripMenuItem.Text = "&File";
+            // 
+            // skipFileToolStripMenuItem
+            // 
+            skipFileToolStripMenuItem.Name = "skipFileToolStripMenuItem";
+            skipFileToolStripMenuItem.Size = new Size(180, 22);
+            skipFileToolStripMenuItem.Text = "&Skip File";
+            skipFileToolStripMenuItem.Click += skipFileToolStripMenuItem_Click;
+            // 
+            // setTagsToolStripMenuItem
+            // 
+            setTagsToolStripMenuItem.Name = "setTagsToolStripMenuItem";
+            setTagsToolStripMenuItem.Size = new Size(180, 22);
+            setTagsToolStripMenuItem.Text = "Set &Tags";
+            setTagsToolStripMenuItem.Click += setTagsToolStripMenuItem_Click;
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(177, 6);
+            // 
+            // writeTaggedFilesToolStripMenuItem
+            // 
+            writeTaggedFilesToolStripMenuItem.Name = "writeTaggedFilesToolStripMenuItem";
+            writeTaggedFilesToolStripMenuItem.Size = new Size(180, 22);
+            writeTaggedFilesToolStripMenuItem.Text = "&Write Log";
+            writeTaggedFilesToolStripMenuItem.Click += writeTaggedFilesToolStripMenuItem_Click;
+            // 
+            // toolsToolStripMenuItem
+            // 
+            toolsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clearAllTagsToolStripMenuItem, toolStripMenuItem2, addCustomTagToolStripMenuItem, addCustomAuthorToolStripMenuItem });
+            toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            toolsToolStripMenuItem.Size = new Size(46, 20);
+            toolsToolStripMenuItem.Text = "&Tools";
+            // 
+            // clearAllTagsToolStripMenuItem
+            // 
+            clearAllTagsToolStripMenuItem.Name = "clearAllTagsToolStripMenuItem";
+            clearAllTagsToolStripMenuItem.Size = new Size(181, 22);
+            clearAllTagsToolStripMenuItem.Text = "&Clear All Tags";
+            clearAllTagsToolStripMenuItem.Click += clearAllTagsToolStripMenuItem_Click;
+            // 
+            // toolStripMenuItem2
+            // 
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            toolStripMenuItem2.Size = new Size(178, 6);
+            // 
+            // addCustomTagToolStripMenuItem
+            // 
+            addCustomTagToolStripMenuItem.Name = "addCustomTagToolStripMenuItem";
+            addCustomTagToolStripMenuItem.Size = new Size(181, 22);
+            addCustomTagToolStripMenuItem.Text = "Add Custom &Tag";
+            addCustomTagToolStripMenuItem.Click += addCustomTagToolStripMenuItem_Click;
+            // 
+            // addCustomAuthorToolStripMenuItem
+            // 
+            addCustomAuthorToolStripMenuItem.Name = "addCustomAuthorToolStripMenuItem";
+            addCustomAuthorToolStripMenuItem.Size = new Size(181, 22);
+            addCustomAuthorToolStripMenuItem.Text = "Add Custom &Author";
+            addCustomAuthorToolStripMenuItem.Click += addCustomAuthorToolStripMenuItem_Click;
+            // 
             // FormImageAnnotation
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -320,7 +407,9 @@
             Controls.Add(panel2);
             Controls.Add(splitContainer1);
             Controls.Add(panel1);
+            Controls.Add(menuStrip1);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MainMenuStrip = menuStrip1;
             MinimumSize = new Size(1030, 647);
             Name = "FormImageAnnotation";
             Text = "Melogen - Annotate Media";
@@ -339,7 +428,10 @@
             panel3.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -364,5 +456,16 @@
         private ListBox listBoxAuthorsSelected;
         private Label labelAuthorsAttached;
         private Label labelTagsAttached;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem toolsToolStripMenuItem;
+        private ToolStripMenuItem skipFileToolStripMenuItem;
+        private ToolStripSeparator toolStripMenuItem1;
+        private ToolStripMenuItem setTagsToolStripMenuItem;
+        private ToolStripMenuItem writeTaggedFilesToolStripMenuItem;
+        private ToolStripMenuItem clearAllTagsToolStripMenuItem;
+        private ToolStripSeparator toolStripMenuItem2;
+        private ToolStripMenuItem addCustomTagToolStripMenuItem;
+        private ToolStripMenuItem addCustomAuthorToolStripMenuItem;
     }
 }
