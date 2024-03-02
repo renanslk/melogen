@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Windows.Forms.Design;
 
 namespace melogen
 {
@@ -204,10 +205,35 @@ namespace melogen
         private void aboutToolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
             MessageBox.Show("Media Log Generator" +
-                "Version 0.1.0\n\n" +
+                "Version 0.2.0\n\n" +
                 "Creator: Renan Pelogia\n" +
                 "All rights reserved",
                 "Media Log Generator");
+        }
+
+        private void radioButton1_MouseClick(object sender, MouseEventArgs e)
+        {
+            richTextOutputPattern.Text = "<div>\n" +
+                "\t<p><span class='file'>File: <filename></span></p>\n" +
+                "\t<img src='relative/path/<filename>'></img>\n" +
+                "\t<p><span class='tags'>Tags: <tags></span></p>\n" +
+                "\t<p><span class='author'>By: <authors></span></p>\n" +
+                "</div>\n";
+        }
+
+        private void radioButton2_MouseClick(object sender, MouseEventArgs e)
+        {
+            richTextOutputPattern.Text = "[\"path\\\\<filename>\",[<tags>], <authors>],";
+        }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            richTextOutputPattern.Text = "['File from <filename> has tags <tags> made by <authors>.";
+        }
+
+        private void radioButtonCommon_MouseClick(object sender, MouseEventArgs e)
+        {
+            richTextOutputPattern.Text = "Processed: <filename>; Tags: <tags>; Authors: <authors>";
         }
     }
 }
