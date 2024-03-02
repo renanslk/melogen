@@ -76,7 +76,7 @@ namespace melogen
             }
             if (style.Equals("info"))
             {
-                labelFilename.ForeColor = Color.Black;
+                labelFilename.ForeColor = Color.WhiteSmoke;
             }
         }
 
