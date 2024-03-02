@@ -85,7 +85,7 @@
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Add new tag";
+            Text = "Add New Tag";
             Load += DialogAddCustomTag_Load;
             ResumeLayout(false);
             PerformLayout();

@@ -38,7 +38,7 @@
             buttonAddCustomAuthor.Location = new Point(170, 33);
             buttonAddCustomAuthor.Name = "buttonAddCustomAuthor";
             buttonAddCustomAuthor.Size = new Size(78, 28);
-            buttonAddCustomAuthor.TabIndex = 0;
+            buttonAddCustomAuthor.TabIndex = 1;
             buttonAddCustomAuthor.Text = "Add";
             buttonAddCustomAuthor.UseVisualStyleBackColor = true;
             buttonAddCustomAuthor.Click += buttonAddCustomAuthor_Click;
@@ -57,7 +57,7 @@
             textBoxAddCustomAuthor.Location = new Point(38, 37);
             textBoxAddCustomAuthor.Name = "textBoxAddCustomAuthor";
             textBoxAddCustomAuthor.Size = new Size(126, 23);
-            textBoxAddCustomAuthor.TabIndex = 2;
+            textBoxAddCustomAuthor.TabIndex = 0;
             // 
             // DialogAddCustomAuthor
             // 
@@ -75,7 +75,7 @@
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
-            Text = "DialogAddCustomAuthor";
+            Text = "Add New Author";
             ResumeLayout(false);
             PerformLayout();
         }

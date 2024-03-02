@@ -18,6 +18,10 @@ namespace melogen
         private int imgIdx = -1;
         private List<string> imageLogs = new List<string>();
 
+        private List<string> customTags = new List<string>();
+        private List<string> customAuthors = new List<string>();
+        private List<string> executionLog = new List<string>();
+
         public FormImageAnnotation(string outputPath, List<string> images, Dictionary<string, List<string>> tags, string leftTagPattern, string rightTagPattern, string separatorTagPattern, string logPattern, bool moveImagesConfig)
         {
             this.outputPath = outputPath;
@@ -266,7 +270,6 @@ namespace melogen
                     FlowLayoutPanel flowLayoutGroup = new FlowLayoutPanel
                     {
                         AutoSize = true,
-                        BackColor = Color.Blue,
                         FlowDirection = FlowDirection.LeftToRight,
                         Name = elem.Key.ToLowerInvariant()
                     };
@@ -274,8 +277,8 @@ namespace melogen
                     Label tagCategory = new Label
                     {
                         Text = elem.Key.ToUpperInvariant(),
-                        Font = new System.Drawing.Font(Font.FontFamily, 11, FontStyle.Bold),
-                        ForeColor = Color.Black,
+                        Font = new System.Drawing.Font(Font.FontFamily, 9, FontStyle.Regular),
+                        ForeColor = Color.WhiteSmoke,
                         AutoSize = true
                     };
 
@@ -308,8 +311,7 @@ namespace melogen
 
         private void buttonSkip_Click(object sender, EventArgs e)
         {
-            goToNextImage();
-            clearData();
+            skipFile();
         }
 
         private void writeLogFile()
@@ -336,9 +338,34 @@ namespace melogen
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
 
+                if ((executionLog.Count > 0) || (customTags.Count > 0) || (customAuthors.Count > 0))
+                {
+                    outputFilename = "Melogen_" + nowFormatted + "_executionLog.txt";
+                    file = outputPath + "\\" + outputFilename;
+
+                    executionLog.Add("Custom tags:");
+                    foreach (string tag in customTags)
+                        executionLog.Add(tag);
+                    executionLog.Add("Custom authors:");
+                    foreach (string author in customAuthors)
+                        executionLog.Add(author);
+
+                    Utils.writeFile(file, executionLog);
+                }
+
                 // Clear current log buffer
                 imageLogs.Clear();
+                customTags.Clear();
+                customAuthors.Clear();
+                executionLog.Clear();
             }
+        }
+
+        private void skipFile()
+        {
+            executionLog.Add(images[imgIdx] + " skipped.");
+            goToNextImage();
+            clearData();
         }
 
         private void buttonWrite_Click(object sender, EventArgs e)
@@ -372,8 +399,7 @@ namespace melogen
 
         private void skipFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            goToNextImage();
-            clearData();
+            skipFile();
         }
 
         private void setTagsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -394,13 +420,14 @@ namespace melogen
             {
                 string newTag = dialogAddCustomTag.tagName;
                 string category = dialogAddCustomTag.catName;
+                this.customTags.Add(newTag);
 
-                Label opa = createTagLabel(newTag);
-                Control[] test = flowLayoutPanelTags.Controls.Find(category, false);
+                Label tag = createTagLabel(newTag);
+                Control[] cat = flowLayoutPanelTags.Controls.Find(category, false);
 
-                foreach (Control testControl in test)
+                foreach (Control catControl in cat)
                 {
-                    testControl.Controls.Add(opa);
+                    catControl.Controls.Add(tag);
                 }
             }
         }
@@ -417,6 +444,7 @@ namespace melogen
             if (dialogAddCustomAuthor.ShowDialog() == DialogResult.OK)
             {
                 List<string> updatedAuthors = dialogAddCustomAuthor.availableAuthors;
+                customAuthors.Add(dialogAddCustomAuthor.customAuthor);
                 updatedAuthors.Sort();
 
                 listBoxAuthor.Items.Clear();

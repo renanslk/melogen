@@ -75,11 +75,14 @@ namespace melogen
                         string[] rawItems = data[1].Split(",");
                         string category = data[0].ToLowerInvariant();
 
-                        List<string> items = new List<string>();
-                        foreach (string item in rawItems)
-                            items.Add(item.Trim().ToLowerInvariant());
+                        if (!annotatorInfo.ContainsKey(category))
+                        {
+                            List<string> items = new List<string>();
+                            foreach (string item in rawItems)
+                                items.Add(item.Trim().ToLowerInvariant());
 
-                        annotatorInfo.Add(category, items);
+                            annotatorInfo.Add(category, items);
+                        }
                     }
                     else
                     {

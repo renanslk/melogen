@@ -13,6 +13,7 @@ namespace melogen
     public partial class DialogAddCustomAuthor : Form
     {
         public List<string> availableAuthors = new List<string>();
+        public string customAuthor;
         public DialogAddCustomAuthor(List<string> availableAuthors)
         {
             this.availableAuthors = availableAuthors;
@@ -26,6 +27,7 @@ namespace melogen
                 if (!availableAuthors.Contains(textBoxAddCustomAuthor.Text.Trim().ToLowerInvariant()))
                 {
                     availableAuthors.Add(textBoxAddCustomAuthor.Text);
+                    this.customAuthor = textBoxAddCustomAuthor.Text;
                     this.DialogResult = DialogResult.OK;
                 }
                 else
