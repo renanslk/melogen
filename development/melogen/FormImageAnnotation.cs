@@ -2,7 +2,7 @@
 using static System.Net.Mime.MediaTypeNames;
 using Image = System.Drawing.Image;
 
-namespace imanno
+namespace melogen
 {
     public partial class FormImageAnnotation : Form
     {
@@ -17,6 +17,10 @@ namespace imanno
 
         private int imgIdx = -1;
         private List<string> imageLogs = new List<string>();
+
+        private List<string> customTags = new List<string>();
+        private List<string> customAuthors = new List<string>();
+        private List<string> executionLog = new List<string>();
 
         public FormImageAnnotation(string outputPath, List<string> images, Dictionary<string, List<string>> tags, string leftTagPattern, string rightTagPattern, string separatorTagPattern, string logPattern, bool moveImagesConfig)
         {
@@ -46,10 +50,13 @@ namespace imanno
             listBoxAuthorsSelected.Items.Clear();
             listBoxAuthorsSelected.Items.Add("unknown");
 
-            foreach (Control control in flowLayoutPanelTags.Controls)
+            foreach (Control controlGroup in flowLayoutPanelTags.Controls)
             {
-                if (control.Tag != null)
-                    control.BackColor = Color.WhiteSmoke;
+                foreach (Control tagControl in controlGroup.Controls)
+                {
+                    if (tagControl.Tag != null)
+                        tagControl.BackColor = Color.WhiteSmoke;
+                }
             }
         }
 
@@ -82,7 +89,7 @@ namespace imanno
                 {
                     if (pictureBoxCurrentImage.Image != null)
                         flushPicturebox();
-                    
+
                     pictureBoxCurrentImage.Image = Image.FromFile(images[imgIdx]);
 
                     updateFileInfo("info", images[imgIdx], imgIdx + 1);
@@ -151,7 +158,7 @@ namespace imanno
 
             Regex r = new Regex(pat, RegexOptions.IgnoreCase);
             Match m = r.Match(text);
-            
+
             if (m.Success)
             {
                 Group g = m.Groups[2];
@@ -171,7 +178,7 @@ namespace imanno
             return newName;
         }
 
-        private void buttonSetTags_Click(object sender, EventArgs e)
+        private void setTags()
         {
             string logLine = "";
             string tagLine = "";
@@ -209,6 +216,39 @@ namespace imanno
             goToNextImage();
         }
 
+        private Label createTagLabel(string tag)
+        {
+            Label tagLabel = new Label
+            {
+                Text = tag,
+                Name = "dinamicLabel" + tag,
+                Tag = 0,
+                AutoSize = true,
+                BackColor = Color.White,
+                Margin = new Padding(3, 3, 3, 3),
+            };
+
+            tagLabel.Click += (s, e) =>
+            {
+                if (listBoxTagsSelected.Items.Contains(tag))
+                {
+                    listBoxTagsSelected.Items.Remove(tag);
+                    tagLabel.BackColor = Color.WhiteSmoke;
+                }
+                else
+                {
+                    listBoxTagsSelected.Items.Add(tag);
+                    tagLabel.BackColor = Color.MediumTurquoise;
+                }
+            };
+            return tagLabel;
+        }
+
+        private void buttonSetTags_Click(object sender, EventArgs e)
+        {
+            setTags();
+        }
+
         private void fillTagsStructures()
         {
             foreach (var elem in tags)
@@ -220,56 +260,40 @@ namespace imanno
                     {
                         if (!listBoxAuthor.Items.Contains(tag))
                         {
-                            listBoxAuthor.Items.Add(tag);
+                            if (!tag.ToLowerInvariant().Equals("unknown"))
+                                listBoxAuthor.Items.Add(tag.ToLowerInvariant());
                         }
                     }
                 }
                 else
                 {
+                    FlowLayoutPanel flowLayoutGroup = new FlowLayoutPanel
+                    {
+                        AutoSize = true,
+                        FlowDirection = FlowDirection.LeftToRight,
+                        Name = elem.Key.ToLowerInvariant()
+                    };
+
                     Label tagCategory = new Label
                     {
                         Text = elem.Key.ToUpperInvariant(),
-                        Font = new System.Drawing.Font(Font.FontFamily, 11, FontStyle.Bold),
-                        ForeColor = Color.Black,
+                        Font = new System.Drawing.Font(Font.FontFamily, 9, FontStyle.Regular),
+                        ForeColor = Color.WhiteSmoke,
                         AutoSize = true
                     };
 
-                    flowLayoutPanelTags.Controls.Add(tagCategory);
-                    flowLayoutPanelTags.SetFlowBreak(tagCategory, true);
+                    flowLayoutGroup.Controls.Add(tagCategory);
+                    flowLayoutGroup.SetFlowBreak(tagCategory, true);
 
                     elem.Value.Sort();
                     foreach (string tag in elem.Value)
                     {
-                        Label tagLabel = new Label
-                        {
-                            Text = tag,
-                            Tag = 0,
-                            AutoSize = true,
-                            BackColor = Color.White,
-                            Margin = new Padding(3, 3, 3, 3),
-                        };
-
-                        tagLabel.Click += (s, e) =>
-                        {
-                            if (listBoxTagsSelected.Items.Contains(tag))
-                            {
-                                listBoxTagsSelected.Items.Remove(tag);
-                                tagLabel.BackColor = Color.WhiteSmoke;
-                            }
-                            else
-                            {
-                                listBoxTagsSelected.Items.Add(tag);
-                                tagLabel.BackColor = Color.MediumTurquoise;
-                            }
-                        };
-
-                        flowLayoutPanelTags.Controls.Add(tagLabel);
-
-                        if (tag == elem.Value.Last())
-                        {
-                            flowLayoutPanelTags.SetFlowBreak(tagLabel, true);
-                        }
+                        Label tagLabel = createTagLabel(tag);
+                        flowLayoutGroup.Controls.Add(tagLabel);
                     }
+
+                    flowLayoutPanelTags.Controls.Add(flowLayoutGroup);
+                    flowLayoutPanelTags.SetFlowBreak(flowLayoutGroup, true);
                 }
             }
         }
@@ -287,8 +311,7 @@ namespace imanno
 
         private void buttonSkip_Click(object sender, EventArgs e)
         {
-            goToNextImage();
-            clearData();
+            skipFile();
         }
 
         private void writeLogFile()
@@ -305,7 +328,7 @@ namespace imanno
                 DateTime now = DateTime.Now;
                 string nowFormatted = now.ToString("yyyyMMddHHmmss");
 
-                string outputFilename = "imAnnoLog_" + nowFormatted + ".txt";
+                string outputFilename = "Melogen_" + nowFormatted + ".txt";
                 string file = outputPath + "\\" + outputFilename;
 
                 Utils.writeFile(file, imageLogs);
@@ -315,9 +338,34 @@ namespace imanno
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
 
+                if ((executionLog.Count > 0) || (customTags.Count > 0) || (customAuthors.Count > 0))
+                {
+                    outputFilename = "Melogen_" + nowFormatted + "_executionLog.txt";
+                    file = outputPath + "\\" + outputFilename;
+
+                    executionLog.Add("Custom tags:");
+                    foreach (string tag in customTags)
+                        executionLog.Add(tag);
+                    executionLog.Add("Custom authors:");
+                    foreach (string author in customAuthors)
+                        executionLog.Add(author);
+
+                    Utils.writeFile(file, executionLog);
+                }
+
                 // Clear current log buffer
                 imageLogs.Clear();
+                customTags.Clear();
+                customAuthors.Clear();
+                executionLog.Clear();
             }
+        }
+
+        private void skipFile()
+        {
+            executionLog.Add(images[imgIdx] + " skipped.");
+            goToNextImage();
+            clearData();
         }
 
         private void buttonWrite_Click(object sender, EventArgs e)
@@ -341,12 +389,73 @@ namespace imanno
                 else
                 {
                     listBoxAuthorsSelected.Items.Add(elem);
-                    if (listBoxAuthorsSelected.Items.Contains ("unknown"))
+                    if (listBoxAuthorsSelected.Items.Contains("unknown"))
                     {
                         listBoxAuthorsSelected.Items.Remove("unknown");
                     }
                 }
             }
+        }
+
+        private void skipFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            skipFile();
+        }
+
+        private void setTagsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            setTags();
+        }
+
+        private void writeTaggedFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            writeLogFile();
+        }
+
+        private void addCustomTagToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogAddCustomTag dialogAddCustomTag = new DialogAddCustomTag(tags, flowLayoutPanelTags);
+
+            if (dialogAddCustomTag.ShowDialog() == DialogResult.OK)
+            {
+                string newTag = dialogAddCustomTag.tagName;
+                string category = dialogAddCustomTag.catName;
+                this.customTags.Add(newTag);
+
+                Label tag = createTagLabel(newTag);
+                Control[] cat = flowLayoutPanelTags.Controls.Find(category, false);
+
+                foreach (Control catControl in cat)
+                {
+                    catControl.Controls.Add(tag);
+                }
+            }
+        }
+
+        private void addCustomAuthorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<string> authors = new List<string>();
+            foreach (string author in listBoxAuthor.Items)
+            {
+                authors.Add(author);
+            }
+            DialogAddCustomAuthor dialogAddCustomAuthor = new DialogAddCustomAuthor(authors);
+
+            if (dialogAddCustomAuthor.ShowDialog() == DialogResult.OK)
+            {
+                List<string> updatedAuthors = dialogAddCustomAuthor.availableAuthors;
+                customAuthors.Add(dialogAddCustomAuthor.customAuthor);
+                updatedAuthors.Sort();
+
+                listBoxAuthor.Items.Clear();
+                foreach (string author in updatedAuthors)
+                    listBoxAuthor.Items.Add(author.ToLowerInvariant());
+            }
+        }
+
+        private void clearAllTagsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clearData();
         }
     }
 }

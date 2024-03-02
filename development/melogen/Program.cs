@@ -1,4 +1,4 @@
-namespace imanno
+namespace melogen
 {
     internal static class Program
     {

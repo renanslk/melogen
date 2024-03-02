@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace imanno
+namespace melogen
 {
     public partial class FormConfig : Form
     {
@@ -75,11 +75,14 @@ namespace imanno
                         string[] rawItems = data[1].Split(",");
                         string category = data[0].ToLowerInvariant();
 
-                        List<string> items = new List<string>();
-                        foreach (string item in rawItems)
-                            items.Add(item.Trim().ToLowerInvariant());
+                        if (!annotatorInfo.ContainsKey(category))
+                        {
+                            List<string> items = new List<string>();
+                            foreach (string item in rawItems)
+                                items.Add(item.Trim().ToLowerInvariant());
 
-                        annotatorInfo.Add(category, items);
+                            annotatorInfo.Add(category, items);
+                        }
                     }
                     else
                     {
