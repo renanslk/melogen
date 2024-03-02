@@ -1,4 +1,4 @@
-﻿namespace imanno
+﻿namespace melogen
 {
     partial class FormConfig
     {
@@ -45,6 +45,11 @@
             checkBoxMoveImages = new CheckBox();
             groupBoxPathConfiguration = new GroupBox();
             groupBoxLogConfiguration = new GroupBox();
+            radioButton3 = new RadioButton();
+            radioButton2 = new RadioButton();
+            radioButton1 = new RadioButton();
+            labelPredefinedLogs = new Label();
+            radioButtonCommon = new RadioButton();
             labelTagSeparator = new Label();
             labelLog = new Label();
             labelTagDecoration = new Label();
@@ -62,11 +67,12 @@
             // 
             // richTextOutputPattern
             // 
+            richTextOutputPattern.DetectUrls = false;
             richTextOutputPattern.Location = new Point(18, 93);
             richTextOutputPattern.Name = "richTextOutputPattern";
             richTextOutputPattern.Size = new Size(378, 72);
             richTextOutputPattern.TabIndex = 0;
-            richTextOutputPattern.Text = "Processed: <filename> Tags: <tags> Authors: <authors>";
+            richTextOutputPattern.Text = "Processed: <filename>; Tags: <tags>; Authors: <authors>";
             // 
             // buttonInputPath
             // 
@@ -127,7 +133,7 @@
             // 
             // textBoxTagSeparator
             // 
-            textBoxTagSeparator.Location = new Point(307, 37);
+            textBoxTagSeparator.Location = new Point(155, 37);
             textBoxTagSeparator.Name = "textBoxTagSeparator";
             textBoxTagSeparator.Size = new Size(42, 23);
             textBoxTagSeparator.TabIndex = 11;
@@ -187,6 +193,11 @@
             // 
             // groupBoxLogConfiguration
             // 
+            groupBoxLogConfiguration.Controls.Add(radioButton3);
+            groupBoxLogConfiguration.Controls.Add(radioButton2);
+            groupBoxLogConfiguration.Controls.Add(radioButton1);
+            groupBoxLogConfiguration.Controls.Add(labelPredefinedLogs);
+            groupBoxLogConfiguration.Controls.Add(radioButtonCommon);
             groupBoxLogConfiguration.Controls.Add(labelTagSeparator);
             groupBoxLogConfiguration.Controls.Add(labelLog);
             groupBoxLogConfiguration.Controls.Add(labelTagDecoration);
@@ -202,10 +213,65 @@
             groupBoxLogConfiguration.TabStop = false;
             groupBoxLogConfiguration.Text = "Output File Configuration";
             // 
+            // radioButton3
+            // 
+            radioButton3.AutoSize = true;
+            radioButton3.Location = new Point(320, 55);
+            radioButton3.Name = "radioButton3";
+            radioButton3.Size = new Size(57, 19);
+            radioButton3.TabIndex = 19;
+            radioButton3.Text = "Styled";
+            radioButton3.UseVisualStyleBackColor = true;
+            radioButton3.CheckedChanged += radioButton3_CheckedChanged;
+            // 
+            // radioButton2
+            // 
+            radioButton2.AutoSize = true;
+            radioButton2.Location = new Point(320, 36);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new Size(53, 19);
+            radioButton2.TabIndex = 18;
+            radioButton2.Text = "Array";
+            radioButton2.UseVisualStyleBackColor = true;
+            radioButton2.MouseClick += radioButton2_MouseClick;
+            // 
+            // radioButton1
+            // 
+            radioButton1.AutoSize = true;
+            radioButton1.Location = new Point(243, 55);
+            radioButton1.Name = "radioButton1";
+            radioButton1.Size = new Size(57, 19);
+            radioButton1.TabIndex = 17;
+            radioButton1.Text = "HTML";
+            radioButton1.UseVisualStyleBackColor = true;
+            radioButton1.MouseClick += radioButton1_MouseClick;
+            // 
+            // labelPredefinedLogs
+            // 
+            labelPredefinedLogs.AutoSize = true;
+            labelPredefinedLogs.Location = new Point(243, 18);
+            labelPredefinedLogs.Name = "labelPredefinedLogs";
+            labelPredefinedLogs.Size = new Size(133, 15);
+            labelPredefinedLogs.TabIndex = 16;
+            labelPredefinedLogs.Text = "Predefined Log Patterns";
+            // 
+            // radioButtonCommon
+            // 
+            radioButtonCommon.AutoSize = true;
+            radioButtonCommon.Checked = true;
+            radioButtonCommon.Location = new Point(243, 36);
+            radioButtonCommon.Name = "radioButtonCommon";
+            radioButtonCommon.Size = new Size(63, 19);
+            radioButtonCommon.TabIndex = 15;
+            radioButtonCommon.TabStop = true;
+            radioButtonCommon.Text = "Default";
+            radioButtonCommon.UseVisualStyleBackColor = true;
+            radioButtonCommon.MouseClick += radioButtonCommon_MouseClick;
+            // 
             // labelTagSeparator
             // 
             labelTagSeparator.AutoSize = true;
-            labelTagSeparator.Location = new Point(292, 19);
+            labelTagSeparator.Location = new Point(152, 19);
             labelTagSeparator.Name = "labelTagSeparator";
             labelTagSeparator.Size = new Size(57, 15);
             labelTagSeparator.TabIndex = 14;
@@ -340,5 +406,10 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem aToolStripMenuItem;
         private ToolStripMenuItem aboutToolStripMenuItem1;
+        private RadioButton radioButton1;
+        private Label labelPredefinedLogs;
+        private RadioButton radioButtonCommon;
+        private RadioButton radioButton3;
+        private RadioButton radioButton2;
     }
 }
